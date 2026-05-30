@@ -1,11 +1,25 @@
+/* ডিফল্ট লাইট মোড কালার (Day Mode) */
 :root {
     --bg-primary: #f3f4f6;
     --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
     --accent-blue: #4f46e5;
     --accent-blue-hover: #4338ca;
     --text-dark: #1f2937;
     --text-muted: #6b7280;
+    --border-color: #e5e7eb;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* ডার্ক মোড কালার (Night Mode) */
+body.dark-theme {
+    --bg-primary: #0f172a;        
+    --bg-sidebar: #1e293b;        
+    --bg-card: #1e293b;           
+    --text-dark: #f8fafc;         
+    --text-muted: #94a3b8;        
+    --border-color: #334155;      
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -13,6 +27,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.15s ease;
 }
 
 body {
@@ -32,12 +47,13 @@ body {
 .sidebar {
     width: 260px;
     background-color: var(--bg-sidebar);
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     padding: 30px 20px;
     position: fixed;
     height: 100vh;
+    z-index: 10;
 }
 
 .user-profile {
@@ -84,7 +100,6 @@ body {
     font-weight: 500;
     font-size: 0.95rem;
     border-radius: 12px;
-    transition: all 0.2s ease;
 }
 
 .nav-item i {
@@ -96,14 +111,18 @@ body {
     color: var(--text-dark);
 }
 
+body.dark-theme .nav-item:hover {
+    background-color: #334155;
+}
+
 .nav-item.active {
     background-color: var(--accent-blue);
     color: #ffffff;
 }
 
 .export-btn {
-    background: none;
-    border: 1px solid #e5e7eb;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
@@ -121,6 +140,7 @@ body {
     flex-grow: 1;
     padding: 40px;
     max-width: 1300px;
+    width: calc(100% - 260px);
 }
 
 .app-header {
@@ -157,7 +177,6 @@ body {
     border-radius: 10px;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
-    transition: background-color 0.2s;
 }
 
 .add-tx-btn:hover {
@@ -165,13 +184,17 @@ body {
 }
 
 .theme-toggle {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
     width: 40px;
     height: 40px;
     border-radius: 10px;
     cursor: pointer;
-    color: var(--text-muted);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 4 Matrix Summary Row Layout blocks */
@@ -183,7 +206,7 @@ body {
 }
 
 .metric-card {
-    background-color: #ffffff;
+    background-color: var(--bg-card);
     padding: 24px;
     border-radius: 16px;
     box-shadow: var(--card-shadow);
@@ -203,6 +226,7 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 6px;
+    color: var(--text-dark);
 }
 
 .trend, .trend-neutral {
@@ -226,7 +250,7 @@ body {
 }
 
 .chart-card {
-    background-color: #ffffff;
+    background-color: var(--bg-card);
     border-radius: 16px;
     padding: 25px;
     box-shadow: var(--card-shadow);
@@ -236,6 +260,7 @@ body {
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 20px;
+    color: var(--text-dark);
 }
 
 .chart-container {
@@ -253,7 +278,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
     display: none;
     align-items: center;
     justify-content: center;
@@ -262,12 +287,13 @@ body {
 }
 
 .modal-box {
-    background: #ffffff;
+    background-color: var(--bg-card);
     width: 100%;
     max-width: 420px;
     border-radius: 16px;
     padding: 25px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
 }
 
 .modal-header {
@@ -275,6 +301,10 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    color: var(--text-dark);
 }
 
 .close-modal-btn {
@@ -300,7 +330,9 @@ body {
 .form-group input, .form-group select {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    color: var(--text-dark);
     border-radius: 8px;
     outline: none;
     font-size: 0.95rem;
@@ -329,5 +361,31 @@ body {
     }
     .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+    .user-profile h3, .nav-item {
+        font-size: 0;
+    }
+    .nav-item i {
+        font-size: 1.2rem;
+        margin: 0 auto;
+    }
+    .main-content {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+        padding: 20px;
+    }
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    .export-btn {
+        font-size: 0;
+        padding: 10px;
     }
 }
